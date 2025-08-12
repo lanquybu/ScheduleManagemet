@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="220dp" android:height="220dp"
+    android:viewportWidth="100" android:viewportHeight="100">
+
+    <!-- Cung tròn ~75% (bắt đầu từ đỉnh, đi theo chiều kim đồng hồ) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/primary_blue"
+        android:strokeWidth="10"
+        android:pathData="M50,5 A45,45 0 1,1 5,50"/>
+</vector>

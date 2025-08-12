@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <!-- Kích thước của donut -->
+            <size android:width="220dp" android:height="220dp"/>
+            <!-- Độ dày vòng -->
+            <stroke android:width="20dp" android:color="@color/blue"/>
+        </shape>
+    </item>
+</layer-list>
