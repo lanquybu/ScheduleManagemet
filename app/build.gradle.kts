@@ -8,6 +8,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
+        vectorDrawables { useSupportLibrary = true }
         applicationId = "com.example.schedulemanagement"
         minSdk = 24
         targetSdk = 35
