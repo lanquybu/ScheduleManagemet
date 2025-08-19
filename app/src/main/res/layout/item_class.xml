@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tvClassCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lớp học phần: 001" />
+
+        <TextView
+            android:id="@+id/tvSubject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Môn học: Cấu trúc dữ liệu" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày: 30/07/2025" />
+
+        <TextView
+            android:id="@+id/tvSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tiết: Tiết 1-3" />
+        <TextView
+            android:id="@+id/tvRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phòng: P302-B5" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

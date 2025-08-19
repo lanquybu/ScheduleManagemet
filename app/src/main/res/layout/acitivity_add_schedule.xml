@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <LinearLayout
+        android:background="#EAF1FF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lập lịch dạy"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- Input Ngày -->
+    <EditText
+        android:id="@+id/edtDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ngày"
+        android:inputType="date"
+
+        android:padding="12dp"/>
+
+    <!-- Input Tiết -->
+    <EditText
+        android:id="@+id/edtPeriod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tiết"
+
+        android:padding="12dp"/>
+
+    <!-- Input Môn học -->
+    <EditText
+        android:id="@+id/edtSubject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Môn học"
+
+        android:padding="12dp"/>
+
+    <!-- Input Phòng -->
+    <EditText
+        android:id="@+id/edtRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phòng"
+
+        android:padding="12dp"/>
+
+    <!-- Nút đăng ký -->
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Đăng ký"
+        android:backgroundTint="@color/primary_blue"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>
