@@ -13,4 +13,6 @@ public final class AppConstants {
 
     // Vai trò hợp lệ cho app sinh viên
     public static final String ROLE_STUDENT = "student";
+    public static final String ROLE_LECTURER  = "lecturer";
+    public static final String ROLE_ADMIN     = "admin";
 }
