@@ -1,6 +1,10 @@
 package com.example.schedulemanagement.ui_teacher.teachingclass;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.schedulemanagement.R;
 import com.example.schedulemanagement.data.model.TeachingClassItem;
+import com.example.schedulemanagement.ui_teacher.teacher_home.TeacherMenuActivity;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -21,6 +26,7 @@ public class ClassListActivity extends AppCompatActivity {
     private ClassAdapter adapter;
     private List<TeachingClassItem> classList;
     private FirebaseFirestore db;
+    private ImageView btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,17 @@ public class ClassListActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         loadDataFromFirestore();
+
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ClassListActivity.this, TeacherMenuActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void loadDataFromFirestore() {
