@@ -6,4 +6,10 @@
     <color name="text_secondary">#5B667A</color>
     <color name="card_bg">#EAF2FF</color>
     <color name="blue">#97C4F5</color>
+    <color name="primaryBlue">#3B82F6</color>
+    <color name="softBlue">#EEF6FF</color>
+    <color name="softStroke">#E5E7EB</color>
+    <color name="textPrimary">#111827</color>
+    <color name="textSecondary">#6B7280</color>
+    <color name="titleBlue">#8CB8FF</color>
 </resources>

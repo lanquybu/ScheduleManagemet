@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@android:color/transparent"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp">
+
+    <!-- Lớp học phần -->
+    <TextView
+        android:id="@+id/tvClassId"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="15sp"
+        android:textColor="#22385C"
+        android:gravity="center"/>
+
+    <!-- Môn học -->
+    <TextView
+        android:id="@+id/tvSubject"
+        android:layout_width="0dp"
+        android:layout_weight="2.2"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="15sp"
+        android:textColor="#22385C"
+        android:gravity="center"/>
+
+    <!-- Giảng viên -->
+    <TextView
+        android:id="@+id/tvTeacher"
+        android:layout_width="0dp"
+        android:layout_weight="1.4"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="15sp"
+        android:textColor="#22385C"
+        android:gravity="center"/>
+
+    <!-- Ngày -->
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="15sp"
+        android:textColor="#4a4a4a"
+        android:gravity="center"/>
+
+    <!-- Nút xác nhận -->
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="74dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="7dp"
+        android:background="@drawable/bg_btn_confirm"
+        android:text="Xác nhận"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:ignore="TouchTargetSizeCheck" />
+</LinearLayout>
