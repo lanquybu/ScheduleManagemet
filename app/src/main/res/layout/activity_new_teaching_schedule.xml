@@ -45,9 +45,11 @@
         </LinearLayout>
 
         <!-- Header cho bảng -->
+
+        <!-- RecyclerView danh sách lịch dạy -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="94dp"
             android:layout_marginBottom="10dp"
             android:background="#F2F9FF"
             android:clipToPadding="false"
@@ -98,7 +100,6 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <!-- RecyclerView danh sách lịch dạy -->
         <include layout="@layout/item_schedule_row"/>
         <include layout="@layout/item_schedule_row"/>
         <include layout="@layout/item_schedule_row"/>
