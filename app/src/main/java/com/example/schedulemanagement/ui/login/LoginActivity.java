@@ -59,30 +59,46 @@ public class LoginActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(email)) { tilEmail.setError("Vui lòng nhập email"); return; }
         if (TextUtils.isEmpty(pass))  { tilPassword.setError("Vui lòng nhập mật khẩu"); return; }
 
-        // 2) Validate domain sinh viên
-        if (!EmailValidator.isStudentEmail(email)) {
-            tilEmail.setError("Chỉ chấp nhận email sinh viên có đuôi " + AppConstants.STUDENT_DOMAIN);
+        // 2) Chỉ kiểm tra ĐỊNH DẠNG email, KHÔNG chặn theo domain ở UI
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            tilEmail.setError("Email không hợp lệ");
             return;
         }
 
         setLoading(true);
-        authRepo.signInStudent(email, pass, new AuthRepository.ResultCallback<UserProfile>() {
+        authRepo.signIn(email, pass, new AuthRepository.ResultCallback<UserProfile>() {
             @Override public void onSuccess(UserProfile profile) {
                 setLoading(false);
-                Toast.makeText(LoginActivity.this, "Xin chào " + profile.fullName, Toast.LENGTH_SHORT).show();
-                // Điều hướng sang màn hình chính
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("studentName", profile.fullName);
-                intent.putExtra("studentEmail", profile.email);
+                // Điều hướng theo role
+                Intent intent;
+                String role = profile.role == null ? "" : profile.role.trim().toLowerCase(java.util.Locale.ROOT);
+                switch (role) {
+                    case AppConstants.ROLE_LECTURER:  // "lecturer"
+                        intent = new Intent(LoginActivity.this,
+                                com.example.schedulemanagement.ui_teacher.teacher_home.TeacherMenuActivity.class);
+                        break;
+                    case AppConstants.ROLE_ADMIN:      // "admin"
+                        // TODO: tạo AdminActivity khi sẵn sàng
+                        // intent = new Intent(LoginActivity.this, com.example.schedulemanagement.ui_admin.AdminActivity.class);
+                        // break;
+                        Toast.makeText(LoginActivity.this, "Admin tạm thời chưa có màn hình.", Toast.LENGTH_SHORT).show();
+                        return;
+                    default:                           // "student"
+                        intent = new Intent(LoginActivity.this,
+                                com.example.schedulemanagement.ui.home.MainActivity.class);
+                        break;
+                }
                 startActivity(intent);
-                finish(); // không quay lại login
+                finish();
             }
+
             @Override public void onError(String message) {
                 setLoading(false);
                 showError(message);
             }
         });
     }
+
 
     private void setLoading(boolean loading) {
         btnLogin.setEnabled(!loading);
