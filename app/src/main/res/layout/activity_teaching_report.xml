@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6FAFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="#F6FAFF">
+
+        <!-- Header với nút Back và tiêu đề -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#E1F0FF"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="#E1F0FF"
+            android:clipToPadding="false"
+            android:elevation="3dp"
+            android:layout_marginTop="5dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_arrow_back"
+                android:tint="#22385C"
+                android:contentDescription="Back"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thống kê giảng dạy"
+                android:textColor="#22385C"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginStart="24dp"/>
+        </LinearLayout>
+
+        <!-- Phần tiêu đề con - Báo cáo giảng dạy -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Báo cáo giảng dạy"
+            android:textColor="#62A9E7"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_marginBottom="22dp"/>
+
+        <!-- Bộ lọc: 3 Spinner -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="23dp">
+
+            <Spinner
+                android:id="@+id/spinnerSemester"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="42dp"
+                android:background="@drawable/bg_spinner_outline"
+                android:layout_marginEnd="12dp"/>
+
+            <Spinner
+                android:id="@+id/spinnerYear"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="42dp"
+                android:background="@drawable/bg_spinner_outline"
+                android:layout_marginEnd="12dp"/>
+
+            <Spinner
+                android:id="@+id/spinnerSubjectGroup"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="42dp"
+                android:background="@drawable/bg_spinner_outline"/>
+        </LinearLayout>
+
+        <!-- Text tiêu đề - Lớp học phần -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lớp học phần"
+            android:textColor="#262626"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Bảng Lớp học phần -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvClassList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="100dp"
+            android:nestedScrollingEnabled="false"/>
+
+        <!-- Text tiêu đề - Giảng viên -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Giảng viên"
+            android:textColor="#262626"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Bảng Giảng viên -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTeacherList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="100dp"
+            android:nestedScrollingEnabled="false"/>
+
+    </LinearLayout>
+</ScrollView>
