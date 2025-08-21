@@ -19,5 +19,13 @@ public class HomeAdminActivity extends AppCompatActivity {
             Intent intent = new Intent(HomeAdminActivity.this, VisibilityActivity.class);
             startActivity(intent);
         });
+
+        MaterialCardView cardScheduleList = findViewById(R.id.cardScheduleList);
+
+        cardScheduleList.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeAdminActivity.this, ScheduleListActivity.class);
+            startActivity(intent);
+        });
+
     }
 }
