@@ -1,16 +1,16 @@
-package com.example.schedulemanagement.ui.progress;
+package com.example.schedulemanagement.ui_student.schedule;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.schedulemanagement.R;
 
-public class ProgressActivity extends AppCompatActivity {
+public class ScheduleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_progress);
+        setContentView(R.layout.activity_schedule);
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
-        // TODO: sau sẽ render % động
+        // TODO: sẽ thay static UI bằng RecyclerView + data thật
     }
 }
