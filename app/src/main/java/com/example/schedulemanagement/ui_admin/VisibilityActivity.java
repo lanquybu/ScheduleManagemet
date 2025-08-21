@@ -1,4 +1,4 @@
-package com.example.schedulemanagement.ui.changes;
+package com.example.schedulemanagement.ui_admin;
 
 import android.os.Bundle;
 import android.widget.ImageButton;

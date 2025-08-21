@@ -33,7 +33,6 @@
                 android:layout_height="36dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_arrow_back"
-                android:tint="#22385C"
                 android:contentDescription="Back"/>
 
             <TextView
@@ -70,7 +69,6 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="42dp"
-                android:background="@drawable/bg_spinner_outline"
                 android:layout_marginEnd="12dp"/>
 
             <Spinner
@@ -78,15 +76,13 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="42dp"
-                android:background="@drawable/bg_spinner_outline"
                 android:layout_marginEnd="12dp"/>
 
             <Spinner
                 android:id="@+id/spinnerSubjectGroup"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="42dp"
-                android:background="@drawable/bg_spinner_outline"/>
+                android:layout_height="42dp" />
         </LinearLayout>
 
         <!-- Text tiêu đề - Lớp học phần -->
