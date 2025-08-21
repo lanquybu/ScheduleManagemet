@@ -24,6 +24,11 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui_admin.ScheduleListActivity"
+            android:exported="false" />
+
+
+        <activity
             android:name=".ui_teacher.teacher_home.TeacherMenuActivity"
             android:exported="false" />
 
