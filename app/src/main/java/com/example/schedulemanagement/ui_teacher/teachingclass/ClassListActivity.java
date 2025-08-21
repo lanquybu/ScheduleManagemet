@@ -2,6 +2,7 @@ package com.example.schedulemanagement.ui_teacher.teachingclass;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -66,7 +67,11 @@ public class ClassListActivity extends AppCompatActivity {
 
                 classList.clear();
                 for (QueryDocumentSnapshot doc : value) {
-                    TeachingClassItem item = doc.toObject(TeachingClassItem.class);
+                    Log.d("Firestore", "Doc ID: " + doc.getId() + " => " + doc.getData());
+                    String subject = doc.getString("subject");
+                    String classCode = doc.getString("classCode");
+                    String module = doc.getString("module");
+                    TeachingClassItem item = new TeachingClassItem(classCode, module, subject);
                     classList.add(item);
                 }
                 adapter.notifyDataSetChanged();
