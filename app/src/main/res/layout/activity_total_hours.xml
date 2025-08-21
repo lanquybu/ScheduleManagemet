@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <!-- Thanh tiêu đề -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:background="#E6F0FF">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tổng số giờ dạy"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+    <!-- Tổng giờ -->
+    <TextView
+        android:id="@+id/tvTotalHours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tổng số giờ: 0"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#1976D2"
+        android:gravity="center"
+        android:padding="16dp"/>
+
+    <!-- Danh sách chi tiết -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvConfirmed"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"/>
+
+</LinearLayout>

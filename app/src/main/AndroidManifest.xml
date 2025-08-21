@@ -30,7 +30,9 @@
         <activity
             android:name=".ui_teacher.teacher_schedule.TeacherScheduleActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".ui_teacher.totaltime.TotalHoursActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.schedule.ScheduleActivity"
             android:exported="false" />
