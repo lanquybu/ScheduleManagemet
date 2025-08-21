@@ -14,11 +14,10 @@ import com.example.schedulemanagement.util.EmailValidator;
 import java.util.Locale;
 
 /**
- * Đăng nhập đa vai trò:
- * - Lấy role từ Firestore (users/{uid}.role).
- * - Nếu role = "student" -> bắt buộc email @e.tlu.edu.vn.
- * - lecturer/admin -> không ép domain.
- * - (Auto-create hồ sơ lần đầu chỉ cho student).
+ * Repository xử lý ĐĂNG NHẬP cho SINH VIÊN.
+ * - Chỉ cho phép email có đuôi @e.tlu.edu.vn
+ * - Kiểm tra Firestore role = "student"
+ * - Lần đầu đăng nhập: tự tạo hồ sơ sinh viên trong users/{uid}
  */
 public class AuthRepository {
 
@@ -30,92 +29,98 @@ public class AuthRepository {
     private static final String TAG = "AuthRepo";
     private final FirebaseSource source = new FirebaseSource();
 
-    public void signIn(String email, String password, ResultCallback<UserProfile> cb) {
+    public void signInStudent(String email, String password, ResultCallback<UserProfile> cb) {
+        // 1) Validate cơ bản
         if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
             cb.onError("Vui lòng nhập email và mật khẩu");
             return;
         }
 
+        // 2) Chuẩn hoá chuỗi
         final String emailNorm = email.trim().toLowerCase(Locale.ROOT);
         final String passNorm  = password.trim();
 
-        // UI đã kiểm tra format; ở đây không kiểm domain
+        // 3) Chặn nếu không đúng domain sinh viên
+        if (!EmailValidator.isStudentEmail(emailNorm)) {
+            cb.onError("Chỉ chấp nhận email sinh viên có đuôi " + AppConstants.STUDENT_DOMAIN);
+            return;
+        }
+
+        // 4) Đăng nhập Firebase Auth
         source.auth().signInWithEmailAndPassword(emailNorm, passNorm)
-                .addOnSuccessListener((AuthResult authResult) -> {
+                .addOnSuccessListener(authResult -> {
                     if (authResult == null || authResult.getUser() == null) {
                         cb.onError("Không lấy được thông tin người dùng");
                         return;
                     }
+
                     final String uid = authResult.getUser().getUid();
                     final String authedEmail = authResult.getUser().getEmail();
                     Log.d(TAG, "Login OK uid=" + uid + ", email=" + authedEmail);
 
-                    // Lấy hồ sơ
+                    // 5) Đọc hồ sơ Firestore
                     source.users().document(uid).get()
                             .addOnSuccessListener((DocumentSnapshot doc) -> {
                                 Log.d(TAG, "users/" + uid + " exists=" + doc.exists() + " data=" + doc.getData());
 
                                 if (!doc.exists()) {
-                                    // Auto-create CHỈ CHO STUDENT (nếu muốn lecturer/admin thì tạo qua web).
-                                    // Mặc định coi user mới là student nếu dùng app SV:
-                                    UserProfile newProfile = new UserProfile(uid, authedEmail, "Sinh viên", AppConstants.ROLE_STUDENT);
+                                    // 5a) Lần đầu: auto tạo hồ sơ sinh viên
+                                    UserProfile newProfile = new UserProfile(
+                                            uid,
+                                            authedEmail,
+                                            "Sinh viên",
+                                            AppConstants.ROLE_STUDENT  // "student"
+                                    );
                                     source.users().document(uid).set(newProfile)
                                             .addOnSuccessListener(v -> {
-                                                Log.d(TAG, "Auto-created STUDENT profile for " + uid);
-                                                // Với student mới tạo -> vẫn kiểm domain
-                                                if (!EmailValidator.isStudentEmail(emailNorm)) {
-                                                    source.auth().signOut();
-                                                    cb.onError("Sinh viên phải dùng email có đuôi " + AppConstants.STUDENT_DOMAIN);
-                                                    return;
-                                                }
+                                                Log.d(TAG, "Auto-created profile for " + uid);
                                                 cb.onSuccess(newProfile);
                                             })
                                             .addOnFailureListener(e -> {
-                                                source.auth().signOut();
-                                                cb.onError("Không tạo được hồ sơ: " + e.getMessage());
+                                                String errorMessage = e.getMessage(); // e là Exception
+                                                cb.onError(errorMessage);
                                             });
+
                                     return;
                                 }
 
+                                // 5b) Có hồ sơ: parse & kiểm tra
                                 UserProfile profile = doc.toObject(UserProfile.class);
-                                if (profile == null || profile.role == null) {
+                                if (profile == null) {
                                     source.auth().signOut();
-                                    cb.onError("Hồ sơ không hợp lệ");
+                                    cb.onError("Hồ sơ không hợp lệ (không parse được)");
                                     return;
                                 }
 
-                                String roleNorm = profile.role.trim().toLowerCase(Locale.ROOT);
+                                // Chuẩn hoá role để so sánh an toàn
+                                String roleNorm = (profile.role == null ? "" : profile.role.trim().toLowerCase(Locale.ROOT));
+                                String mustBe   = (AppConstants.ROLE_STUDENT == null ? "student"
+                                        : AppConstants.ROLE_STUDENT.trim().toLowerCase(Locale.ROOT));
 
-                                // Nếu là student -> bắt buộc domain @e.tlu.edu.vn
-                                if (AppConstants.ROLE_STUDENT.equals(roleNorm)) {
-                                    if (!EmailValidator.isStudentEmail(emailNorm)) {
-                                        source.auth().signOut();
-                                        cb.onError("Sinh viên phải dùng email có đuôi " + AppConstants.STUDENT_DOMAIN);
-                                        return;
-                                    }
-                                } else if (!AppConstants.ROLE_LECTURER.equals(roleNorm)
-                                        && !AppConstants.ROLE_ADMIN.equals(roleNorm)) {
+                                if (!mustBe.equals(roleNorm)) {
                                     source.auth().signOut();
-                                    cb.onError("Vai trò không được hỗ trợ: " + profile.role);
+                                    cb.onError("Tài khoản không phải sinh viên (role=" + profile.role + ")");
                                     return;
                                 }
 
-                                // Cảnh báo nếu email Firestore khác Auth
+                                // Cảnh báo nếu email Firestore khác Auth (không chặn)
                                 if (profile.email == null ||
                                         !emailNorm.equals(profile.email.trim().toLowerCase(Locale.ROOT))) {
                                     Log.w(TAG, "Email Firestore khác Auth: fs=" + profile.email + ", auth=" + emailNorm);
                                 }
 
+                                // ✅ Thành công
                                 cb.onSuccess(profile);
                             })
                             .addOnFailureListener(e -> {
                                 source.auth().signOut();
                                 cb.onError("Lỗi tải hồ sơ: " + e.getMessage());
                             });
-
                 })
                 .addOnFailureListener(e -> {
-                    String msg = (e instanceof FirebaseAuthException) ? ((FirebaseAuthException) e).getMessage() : e.getMessage();
+                    String msg = (e instanceof FirebaseAuthException)
+                            ? ((FirebaseAuthException) e).getMessage()
+                            : e.getMessage();
                     cb.onError("Đăng nhập thất bại: " + msg);
                 });
     }
