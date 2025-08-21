@@ -1,4 +1,4 @@
-package com.example.schedulemanagement.ui.login;
+package com.example.schedulemanagement.login;
 
 import android.content.Intent;
 import android.os.Bundle;

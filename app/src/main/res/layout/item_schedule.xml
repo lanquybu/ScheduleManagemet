@@ -8,15 +8,17 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="12dp">
 
+    <!-- Giờ học -->
     <TextView
         android:id="@+id/tvTime"
         android:text="09:45"
         android:textStyle="bold"
         android:textColor="@color/text_primary"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
+    <!-- Thông tin môn học -->
     <LinearLayout
         android:orientation="vertical"
         android:layout_marginStart="16dp"
@@ -29,9 +31,9 @@
             android:text="Ứng dụng di động"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tvRoom"
@@ -39,14 +41,15 @@
             android:textColor="@color/text_secondary"
             android:textSize="16sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <!-- Tiết học -->
     <TextView
         android:id="@+id/tvPeriods"
         android:text="Tiết: 3-6"
         android:textColor="@color/text_secondary"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 </LinearLayout>

@@ -77,9 +77,10 @@ public class AuthRepository {
                                                 cb.onSuccess(newProfile);
                                             })
                                             .addOnFailureListener(e -> {
-                                                source.auth().signOut();
-                                                cb.onError("Không tạo được hồ sơ: " + e.getMessage());
+                                                String errorMessage = e.getMessage(); // e là Exception
+                                                cb.onError(errorMessage);
                                             });
+
                                     return;
                                 }
 
