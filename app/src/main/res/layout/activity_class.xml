@@ -45,13 +45,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Môn học"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Mã lớp"
             android:textStyle="bold"/>
 
@@ -60,6 +53,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Học phần"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Môn học"
             android:textStyle="bold"/>
     </LinearLayout>
 
