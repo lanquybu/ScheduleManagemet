@@ -123,3 +123,4 @@ public class LoginActivity extends AppCompatActivity {
         return et.getText() == null ? "" : et.getText().toString().trim();
     }
 }
+

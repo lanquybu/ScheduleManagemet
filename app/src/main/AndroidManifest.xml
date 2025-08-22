@@ -44,6 +44,12 @@
             android:name=".ui_teacher.teacher_schedule.TeacherScheduleActivity"
             android:exported="false" />
         <activity
+            android:name=".ui_teacher.teacher_schedule.AddScheduleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui_teacher.teacher_schedule.MakeUpScheduleActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui_teacher.totaltime.TotalHoursActivity"
             android:exported="false" />
         <activity

@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.schedulemanagement.R;
 import com.example.schedulemanagement.data.model.ScheduleItem;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ConfirmedAdapter extends RecyclerView.Adapter<ConfirmedAdapter.ViewHolder> {
 
@@ -34,7 +36,12 @@ public class ConfirmedAdapter extends RecyclerView.Adapter<ConfirmedAdapter.View
         ScheduleItem item = list.get(position);
         holder.tvModule.setText("Lớp học phần: " + item.getModule());
         holder.tvSubject.setText("Môn học: " + item.getSubject());
-        holder.tvDate.setText("Ngày: " + item.getDate());
+        String dateStr = "-";
+        if (item.getDate() != null) {
+            dateStr = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    .format(item.getDate().toDate());
+        }
+        holder.tvDate.setText("Ngày: " + dateStr);
         holder.tvSection.setText("Tiết: " + item.getSection());
         holder.tvRoom.setText("Phòng: " + item.getRoom());
     }

@@ -16,6 +16,7 @@ import com.example.schedulemanagement.R;
 import com.example.schedulemanagement.data.model.ScheduleItem;
 import com.example.schedulemanagement.ui_teacher.teacher_home.TeacherMenuActivity;
 import com.example.schedulemanagement.ui_teacher.teachingclass.ClassListActivity;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -85,15 +86,18 @@ public class VerifyTeachingTimeActivity extends AppCompatActivity {
                         String subject = doc.getString("subject");
                         String room = doc.getString("room");
                         String section = doc.getString("section");
-                        String date = "";
+                        Timestamp date = doc.getTimestamp("date");
 
-                        if (doc.getDate("date") != null) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                            date = sdf.format(doc.getDate("date"));
-                        }
 
-                        ScheduleItem item = new ScheduleItem(module, subject, date, room, section);
-                        item.setId(doc.getId()); // cần thêm field id trong model
+
+
+                        ScheduleItem item = new ScheduleItem(  doc.getId(),  // id
+                                subject,
+                                module,
+                                room,
+                                section,
+                                date);
+
                         scheduleList.add(item);
                     }
                     adapter.notifyDataSetChanged();
