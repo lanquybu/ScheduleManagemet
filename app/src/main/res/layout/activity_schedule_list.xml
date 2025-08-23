@@ -18,84 +18,13 @@
         app:navigationIcon="@drawable/ic_arrow_back"
         app:navigationIconTint="@color/primary_blue" />
 
+    <!-- Header -->
+    <include layout="@layout/activity_schedule_list_bar" />
+
     <!-- ScrollView bao quanh LinearLayout chứa các card box -->
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSchedules"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!-- Box mẫu: bạn copy paste nhiều lần cho nhiều lịch -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:padding="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <!-- 6 cột đúng tên -->
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="Lớp học phần"
-                        android:textColor="#000000"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="Môn học"
-                        android:textColor="#000000"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="Giảng viên"
-                        android:textColor="#000000"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="Ngày"
-                        android:textColor="#000000"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="Phòng"
-                        android:textColor="#000000"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="Tiết"
-                        android:textColor="#000000"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Copy thẻ CardView phía trên nếu cần nhiều box, dữ liệu sẽ đổ từ Firebase -->
-
-        </LinearLayout>
-    </ScrollView>
+        android:padding="8dp"/>
 </LinearLayout>
