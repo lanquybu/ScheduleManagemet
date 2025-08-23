@@ -1,6 +1,7 @@
 package com.example.schedulemanagement.data.remote;
 
 import com.example.schedulemanagement.data.model.NotificationItem;
+import com.example.schedulemanagement.data.model.ProgressItem;
 import com.example.schedulemanagement.data.model.ScheduleItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -53,7 +54,16 @@ public class FirebaseSource {
                 .addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
 
-
+    public void getStudentProgress(int totalSessions, ResultCallback<ProgressItem> callback) {
+        db.collection("studentNotifications")
+                .get()
+                .addOnSuccessListener(query -> {
+                    int completed = query.size(); // số thông báo = số buổi đã học
+                    ProgressItem item = new ProgressItem(completed, totalSessions);
+                    callback.onSuccess(item);
+                })
+                .addOnFailureListener(e -> callback.onError(e.getMessage()));
+    }
 
     public FirebaseAuth auth() {
         return auth;

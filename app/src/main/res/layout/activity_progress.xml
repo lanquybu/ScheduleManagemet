@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/screen_bg"
     android:orientation="vertical"
     android:padding="24dp"
@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- top bar -->
+    <!-- Top bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/btnBack"
             android:src="@drawable/ic_arrow_back"
-            android:tint="@color/primary_blue"
+            app:tint="@color/primary_blue"
             android:layout_width="24dp"
             android:layout_height="24dp"/>
 
@@ -30,39 +30,37 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <!-- Donut tĩnh -->
+    <!-- Donut Chart + Text % ở giữa -->
     <FrameLayout
-        android:layout_width="220dp"
-        android:layout_height="220dp"
-        android:layout_marginTop="24dp">
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="32dp">
 
-        <ImageView
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/progress_ring_bg"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/progress_ring_75"/>
+            android:layout_height="match_parent"/>
 
         <TextView
-            android:text="75%"
+            android:id="@+id/tvPercentCenter"
+            android:text="0%"
             android:textStyle="bold"
             android:textSize="28sp"
             android:textColor="@color/primary_blue"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
     </FrameLayout>
 
-    <!-- Legend -->
+    <!-- Legend, nằm hẳn dưới chart -->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp">
 
+        <!-- Completed -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -84,12 +82,14 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:text="12"
+                android:id="@+id/tvCompleted"
+                android:text="0"
                 android:textColor="@color/text_secondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
+        <!-- Pending -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -110,7 +110,8 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:text="3"
+                android:id="@+id/tvPending"
+                android:text="0"
                 android:textColor="@color/text_secondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
