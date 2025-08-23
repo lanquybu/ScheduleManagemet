@@ -48,7 +48,7 @@ public class NotificationsActivity extends AppCompatActivity {
         // giả sử classId của sinh viên đang login = "IT01"
         String studentClassId = "IT01";
 
-        firebaseSource.getStudentNotifications(studentClassId, new ResultCallback<List<NotificationItem>>() {
+        firebaseSource.getStudentNotifications(new ResultCallback<List<NotificationItem>>() {
             @Override
             public void onSuccess(List<NotificationItem> data) {
                 progressBar.setVisibility(View.GONE);
@@ -63,5 +63,6 @@ public class NotificationsActivity extends AppCompatActivity {
                 Toast.makeText(NotificationsActivity.this, "Lỗi: " + message, Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 }

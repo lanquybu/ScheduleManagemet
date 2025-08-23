@@ -114,28 +114,55 @@ public class VerifyTeachingTimeActivity extends AppCompatActivity {
                     confirmedData.put("room", item.getRoom());
                     confirmedData.put("subject", item.getSubject());
                     confirmedData.put("module", item.getModule());
-                    confirmedData.put("date", item.getDate());   // Nếu là String thì giữ String, nếu Timestamp thì set Date
+                    confirmedData.put("date", item.getDate());
                     confirmedData.put("section", item.getSection());
 
                     db.collection("confirmedSchedules")
                             .add(confirmedData)
                             .addOnSuccessListener(docRef -> {
-                                // 3. Xoá khỏi list + cập nhật UI
-                                scheduleList.remove(position);
-                                adapter.notifyItemRemoved(position);
+                                // 3. Tạo message chuẩn hóa
+                                String subject = item.getSubject();   // môn học
+                                String section = item.getSection();   // tiết học
+                                String room = item.getRoom();         // phòng học
+                                String message = subject + " - Tiết " + section + " - Phòng " + room;
 
-                                Toast.makeText(this, "Đã xác nhận giờ dạy!", Toast.LENGTH_SHORT).show();
+                                // 4. Lưu thông báo sang "studentNotifications"
+                                Map<String, Object> notiData = new HashMap<>();
+                                notiData.put("title", "Lịch học mới");
+                                notiData.put("message", message);
+                                notiData.put("timestamp", com.google.firebase.Timestamp.now());
 
-                                // Reset chọn
-                                selectedItem = null;
-                                selectedPosition = -1;
+                                db.collection("studentNotifications")
+                                        .add(notiData)
+                                        .addOnSuccessListener(notiRef -> {
+                                            // 5. Xoá khỏi list + cập nhật UI
+                                            scheduleList.remove(position);
+                                            adapter.notifyItemRemoved(position);
+
+                                            Toast.makeText(this,
+                                                    "Đã xác nhận giờ dạy và gửi thông báo!",
+                                                    Toast.LENGTH_SHORT).show();
+
+                                            // Reset chọn
+                                            selectedItem = null;
+                                            selectedPosition = -1;
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(this,
+                                                    "Lỗi khi lưu studentNotifications: " + e.getMessage(),
+                                                    Toast.LENGTH_SHORT).show();
+                                        });
                             })
                             .addOnFailureListener(e -> {
-                                Toast.makeText(this, "Lỗi khi lưu confirmed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this,
+                                        "Lỗi khi lưu confirmed: " + e.getMessage(),
+                                        Toast.LENGTH_SHORT).show();
                             });
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Lỗi khi xoá schedule: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,
+                            "Lỗi khi xoá schedule: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
                 });
     }
 }

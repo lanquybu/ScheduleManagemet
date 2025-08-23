@@ -38,9 +38,8 @@ public class FirebaseSource {
                 .addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
 
-    public void getStudentNotifications(String classId, ResultCallback<List<NotificationItem>> callback) {
+    public void getStudentNotifications(ResultCallback<List<NotificationItem>> callback) {
         db.collection("studentNotifications")
-                .whereEqualTo("classId", classId)
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener(querySnapshot -> {
@@ -53,6 +52,7 @@ public class FirebaseSource {
                 })
                 .addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
+
 
 
     public FirebaseAuth auth() {
