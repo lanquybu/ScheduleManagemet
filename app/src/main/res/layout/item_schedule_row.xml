@@ -9,7 +9,6 @@
     android:paddingEnd="10dp"
     android:paddingStart="10dp">
 
-    <!-- Lớp học phần -->
     <TextView
         android:id="@+id/tvClassId"
         android:layout_width="48dp"
@@ -19,7 +18,6 @@
         android:textColor="#22385C"
         android:gravity="center"/>
 
-    <!-- Môn học -->
     <TextView
         android:id="@+id/tvSubject"
         android:layout_width="0dp"
@@ -30,7 +28,6 @@
         android:textColor="#22385C"
         android:gravity="center"/>
 
-    <!-- Giảng viên -->
     <TextView
         android:id="@+id/tvTeacher"
         android:layout_width="0dp"
@@ -41,7 +38,6 @@
         android:textColor="#22385C"
         android:gravity="center"/>
 
-    <!-- Ngày -->
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="78dp"
@@ -51,7 +47,6 @@
         android:textColor="#4a4a4a"
         android:gravity="center"/>
 
-    <!-- Nút xác nhận -->
     <Button
         android:id="@+id/btnConfirm"
         android:layout_width="74dp"

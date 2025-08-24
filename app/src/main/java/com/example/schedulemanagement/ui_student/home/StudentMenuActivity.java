@@ -1,14 +1,14 @@
-package com.example.schedulemanagement.ui.home;
+package com.example.schedulemanagement.ui_student.home;
 
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.schedulemanagement.R;
-import com.example.schedulemanagement.ui.notification.NotificationsActivity;
-import com.example.schedulemanagement.ui.progress.ProgressActivity;
-import com.example.schedulemanagement.ui.schedule.ScheduleActivity;
+import com.example.schedulemanagement.ui_student.notification.NotificationsActivity;
+import com.example.schedulemanagement.ui_student.progress.ProgressActivity;
+import com.example.schedulemanagement.ui_student.schedule.ScheduleActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class StudentMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package com.example.schedulemanagement.ui.login;
+package com.example.schedulemanagement.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,7 @@ import com.example.schedulemanagement.R;
 import com.example.schedulemanagement.core.AppConstants;
 import com.example.schedulemanagement.data.model.UserProfile;
 import com.example.schedulemanagement.data.repository.AuthRepository;
-import com.example.schedulemanagement.ui.home.MainActivity; // <-- import đúng package MainActivity
-import com.example.schedulemanagement.util.EmailValidator;
+import com.example.schedulemanagement.ui_student.home.StudentMenuActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -70,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override public void onSuccess(UserProfile profile) {
                 setLoading(false);
                 // Điều hướng theo role
+                // Điều hướng theo role
                 Intent intent;
                 String role = profile.role == null ? "" : profile.role.trim().toLowerCase(java.util.Locale.ROOT);
                 switch (role) {
@@ -78,18 +78,17 @@ public class LoginActivity extends AppCompatActivity {
                                 com.example.schedulemanagement.ui_teacher.teacher_home.TeacherMenuActivity.class);
                         break;
                     case AppConstants.ROLE_ADMIN:      // "admin"
-                        // TODO: tạo AdminActivity khi sẵn sàng
-                        // intent = new Intent(LoginActivity.this, com.example.schedulemanagement.ui_admin.AdminActivity.class);
-                        // break;
-                        Toast.makeText(LoginActivity.this, "Admin tạm thời chưa có màn hình.", Toast.LENGTH_SHORT).show();
-                        return;
+                        intent = new Intent(LoginActivity.this,
+                                com.example.schedulemanagement.ui_admin.HomeAdminActivity.class);
+                        break;
                     default:                           // "student"
                         intent = new Intent(LoginActivity.this,
-                                com.example.schedulemanagement.ui.home.MainActivity.class);
+                                com.example.schedulemanagement.ui_student.home.StudentMenuActivity.class);
                         break;
                 }
                 startActivity(intent);
                 finish();
+
             }
 
             @Override public void onError(String message) {
@@ -124,3 +123,4 @@ public class LoginActivity extends AppCompatActivity {
         return et.getText() == null ? "" : et.getText().toString().trim();
     }
 }
+

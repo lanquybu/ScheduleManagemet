@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!-- Thanh tiêu đề -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#E3F2FD"
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Nút back -->
+
+        <!-- Tiêu đề -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="Back"
+            android:src="@drawable/ic_arrow_back"
+            app:tint="@color/primary_blue" />
+
+        <TextView
+            android:text="Theo dõi thay đổi"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- Nội dung chính căn giữa -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Card: Danh sách lịch dạy bù -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDayBu"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:backgroundTint="#F5F9FF">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:src="@drawable/ic_calendar"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:tint="#2196F3"/>
+
+                <TextView
+                    android:text="Danh sách lịch dạy bù"
+                    android:textSize="16sp"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Card: Danh sách lịch dạy mới -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDayMoi"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:backgroundTint="#F5F9FF">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:src="@drawable/ic_calendar"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:tint="#2196F3"/>
+
+                <TextView
+                    android:text="Danh sách lịch dạy mới"
+                    android:textSize="16sp"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</LinearLayout>

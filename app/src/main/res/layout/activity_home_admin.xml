@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- App bar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        app:menu="@menu/menu_home_admin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/softBlue"
+        app:title="Trang chủ"
+        app:titleTextColor="@android:color/black"
+        app:titleMarginStart="16dp"
+        app:titleCentered="false"
+        app:titleTextAppearance="@style/ToolbarTitleStyle" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Subtitle -->
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:text="Hệ thống quản lý lịch trình giảng dạy"
+            android:textColor="@color/titleBlue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Card 1: Danh sách lịch giảng dạy -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardScheduleList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/softBlue">
+
+            <LinearLayout
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/ic_calendar"
+                    app:tint="@color/primaryBlue" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:text="Danh sách lịch giảng dạy"
+                    android:textStyle="bold"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 2 -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardStatistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/softBlue">
+
+            <LinearLayout
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/outline_bar_chart_24"
+                    app:tint="@color/primaryBlue" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:text="Thống kê giảng dạy"
+                    android:textStyle="bold"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 3 -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardChangeTracking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardBackgroundColor="@color/softBlue">
+
+            <LinearLayout
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/visibility_24dp_e3e3e3_fill0_wght400_grad0_opsz24"
+                    app:tint="@color/primaryBlue" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:text="Theo dõi thay đổi"
+                    android:textStyle="bold"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</LinearLayout>

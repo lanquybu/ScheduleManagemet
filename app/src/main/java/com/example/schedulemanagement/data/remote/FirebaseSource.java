@@ -1,27 +1,75 @@
 package com.example.schedulemanagement.data.remote;
 
+import com.example.schedulemanagement.data.model.NotificationItem;
+import com.example.schedulemanagement.data.model.ProgressItem;
+import com.example.schedulemanagement.data.model.ScheduleItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 
-import com.example.schedulemanagement.core.AppConstants;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.checkerframework.checker.units.qual.A;
-
-/**
- * Lớp tập trung các "điểm truy cập" đến Firebase.
- * Dễ thay thế/mock nếu cần test sau này.
- */
 public class FirebaseSource {
-    public FirebaseAuth auth(){
-        return FirebaseAuth.getInstance();
+    // Thêm vào để AuthRepository dùng được
+    private final FirebaseAuth auth;
+    private final CollectionReference users;
+    private final FirebaseFirestore db;
+
+    public FirebaseSource() {
+        db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
+        users = db.collection("users");
     }
 
-    public FirebaseFirestore db(){
-        return FirebaseFirestore.getInstance();
+    // Hàm lấy lịch học cho sinh viên
+    public void getStudentSchedule(ResultCallback<List<ScheduleItem>> callback) {
+        db.collection("confirmedSchedules")
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    List<ScheduleItem> schedules = new ArrayList<>();
+                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                        ScheduleItem item = doc.toObject(ScheduleItem.class);
+                        if (item != null) schedules.add(item);
+                    }
+                    callback.onSuccess(schedules);
+                })
+                .addOnFailureListener(e -> callback.onError(e.getMessage()));
     }
 
-    public CollectionReference users(){
-        return db().collection(AppConstants.USERS);
+    public void getStudentNotifications(ResultCallback<List<NotificationItem>> callback) {
+        db.collection("studentNotifications")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    List<NotificationItem> notis = new ArrayList<>();
+                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                        NotificationItem item = doc.toObject(NotificationItem.class);
+                        if (item != null) notis.add(item);
+                    }
+                    callback.onSuccess(notis);
+                })
+                .addOnFailureListener(e -> callback.onError(e.getMessage()));
+    }
+
+    public void getStudentProgress(int totalSessions, ResultCallback<ProgressItem> callback) {
+        db.collection("studentNotifications")
+                .get()
+                .addOnSuccessListener(query -> {
+                    int completed = query.size(); // số thông báo = số buổi đã học
+                    ProgressItem item = new ProgressItem(completed, totalSessions);
+                    callback.onSuccess(item);
+                })
+                .addOnFailureListener(e -> callback.onError(e.getMessage()));
+    }
+
+    public FirebaseAuth auth() {
+        return auth;
+    }
+
+    public CollectionReference users() {
+        return users;
     }
 }

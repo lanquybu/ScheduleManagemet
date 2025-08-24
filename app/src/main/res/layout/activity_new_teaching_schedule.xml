@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F6FAFF">
@@ -12,7 +13,6 @@
         android:padding="18dp"
         android:gravity="center_horizontal">
 
-        <!-- Header với nút back và tiêu đề -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -44,9 +44,6 @@
                 android:layout_marginStart="24dp"/>
         </LinearLayout>
 
-        <!-- Header cho bảng -->
-
-        <!-- RecyclerView danh sách lịch dạy -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="94dp"
@@ -100,10 +97,16 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <include layout="@layout/item_schedule_row"/>
-        <include layout="@layout/item_schedule_row"/>
-        <include layout="@layout/item_schedule_row"/>
+        <include
+            android:id="@+id/schedule1"
+            layout="@layout/item_schedule_row" />
 
+        <include
+            android:id="@+id/schedule2"
+            layout="@layout/item_schedule_row" />
 
+        <include
+            android:id="@+id/schedule3"
+            layout="@layout/item_schedule_row" />
     </LinearLayout>
 </ScrollView>
