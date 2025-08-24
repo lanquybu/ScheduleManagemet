@@ -20,6 +20,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui_admin.ScheduleListMakeUpActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui_admin.VisibilityActivity"
             android:exported="false" />
 
