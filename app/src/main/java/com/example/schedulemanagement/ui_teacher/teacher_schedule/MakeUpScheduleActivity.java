@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class MakeUpScheduleActivity extends AppCompatActivity {
 
-    private EditText edtAbsentDay, edtMakeUpDay, edtSubject, edtRoom, edtReason;
+    private EditText edtAbsentDay, edtMakeUpDay, edtSubject, edtRoom, edtReason, edtName;
     private Button btnRegister;
     private ImageView btnBack;
 
@@ -40,7 +40,7 @@ public class MakeUpScheduleActivity extends AppCompatActivity {
         edtReason = findViewById(R.id.edtReason);
         btnRegister = findViewById(R.id.btnRegister);
         btnBack = findViewById(R.id.btnBack);
-
+        edtName = findViewById(R.id.edtName);
         // Firestore instance
         db = FirebaseFirestore.getInstance();
 
@@ -54,6 +54,7 @@ public class MakeUpScheduleActivity extends AppCompatActivity {
             String subject = edtSubject.getText().toString().trim();
             String room = edtRoom.getText().toString().trim();
             String reason = edtReason.getText().toString().trim();
+            String name = edtName.getText().toString().trim();
 
             if (absentStr.isEmpty() || makeUpStr.isEmpty() || subject.isEmpty() || room.isEmpty() || reason.isEmpty()) {
                 Toast.makeText(this, "Vui lòng nhập đủ thông tin", Toast.LENGTH_SHORT).show();
@@ -76,6 +77,7 @@ public class MakeUpScheduleActivity extends AppCompatActivity {
             data.put("subject", subject);
             data.put("room", room);
             data.put("reason", reason);
+            data.put("name", name);
 
             // Lưu vào collection "MakeUpClasses"
             db.collection("MakeUpClasses")
