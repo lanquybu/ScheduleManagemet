@@ -1,7 +1,13 @@
 package com.example.schedulemanagement.ui_admin;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -42,10 +48,7 @@ public class ScheduleListMakeUpActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewDayBu);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new DayBuAdapter(dayBuList, item -> {
-            // xử lý khi click nút Xác nhận (nếu cần)
-            Toast.makeText(this, "Xác nhận: " + item.getClassId(), Toast.LENGTH_SHORT).show();
-        });
+        adapter = new DayBuAdapter(dayBuList, item -> showConfirmDialog(item));
         recyclerView.setAdapter(adapter);
 
         db = FirebaseFirestore.getInstance();
@@ -53,7 +56,7 @@ public class ScheduleListMakeUpActivity extends AppCompatActivity {
     }
 
     private void loadDayBuFromFirebase() {
-        db.collection("MakeUpClasses")  // ⚠️ ĐÚNG collection của bạn
+        db.collection("MakeUpClasses")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     dayBuList.clear();
@@ -78,4 +81,54 @@ public class ScheduleListMakeUpActivity extends AppCompatActivity {
                     Toast.makeText(this, "Lỗi tải dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+
+    private void showConfirmDialog(DayBuItem item) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_confirm_makeup);
+        dialog.setCancelable(false);
+
+        // Set kích thước 1/3 màn hình và nằm giữa
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+            params.copyFrom(window.getAttributes());
+            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            params.height = getResources().getDisplayMetrics().heightPixels / 3;
+            window.setAttributes(params);
+            window.setGravity(Gravity.CENTER);
+        }
+
+        // Set thông tin lớp học
+        TextView txtClassInfo = dialog.findViewById(R.id.txtClassInfo);
+        txtClassInfo.setText(
+                "Lớp: " + item.getClassId() + "\n" +
+                        "Môn: " + item.getSubject() + "\n" +
+                        "Giảng viên: " + item.getName() + "\n" +
+                        "Ngày dạy bù: " + item.getMakeUpDay().toDate().toString()
+        );
+
+        // Nút Hủy
+        Button btnCancel = dialog.findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+
+        // Nút Xác nhận
+        Button btnConfirm = dialog.findViewById(R.id.btnConfirm);
+        btnConfirm.setOnClickListener(v -> {
+            db.collection("MakeUpClasses")
+                    .document(item.getClassId()) // Giả sử documentId = classId
+                    .delete()
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "Đã xóa lớp " + item.getClassId(), Toast.LENGTH_SHORT).show();
+                        dayBuList.remove(item);
+                        adapter.notifyDataSetChanged();
+                        dialog.dismiss();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Xóa thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+        });
+
+        dialog.show();
+    }
+
 }
