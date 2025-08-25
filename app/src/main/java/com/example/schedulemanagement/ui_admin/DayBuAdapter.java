@@ -20,11 +20,11 @@ import java.util.Locale;
 public class DayBuAdapter extends RecyclerView.Adapter<DayBuAdapter.DayBuViewHolder> {
 
     public interface OnConfirmClickListener {
-        void onConfirmClick(DayBuItem item);
+        void onConfirmClick(DayBuItem item); // Interface callback cho Activity
     }
 
-    private List<DayBuItem> dayBuList;
-    private OnConfirmClickListener listener;
+    private final List<DayBuItem> dayBuList;
+    private final OnConfirmClickListener listener;
 
     public DayBuAdapter(List<DayBuItem> dayBuList, OnConfirmClickListener listener) {
         this.dayBuList = dayBuList;
@@ -43,11 +43,12 @@ public class DayBuAdapter extends RecyclerView.Adapter<DayBuAdapter.DayBuViewHol
     public void onBindViewHolder(@NonNull DayBuViewHolder holder, int position) {
         DayBuItem item = dayBuList.get(position);
 
-        holder.txtLopHocPhan.setText(item.getClassId());      // Lớp học phần
-        holder.txtMonHoc.setText(item.getSubject());       // Môn học
-        holder.txtGiangVien.setText(item.getName());       // Giảng viên
-        holder.txtNgay.setText(formatDate(item.getMakeUpDay())); // Ngày dạy bù
+        holder.txtLopHocPhan.setText(item.getClassId());
+        holder.txtMonHoc.setText(item.getSubject());
+        holder.txtGiangVien.setText(item.getName());
+        holder.txtNgay.setText(formatDate(item.getMakeUpDay()));
 
+        // Khi bấm nút Xác nhận, gọi callback sang Activity để mở dialog
         holder.btnXacNhan.setOnClickListener(v -> listener.onConfirmClick(item));
     }
 
