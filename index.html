@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quản lý lịch học</title>
+
+  <style>
+    :root{
+      --ocean:#0077b6;
+      --ocean-dark:#005f99;
+      --ocean-light:#00b4d8;
+      --bg:#f0f8ff;
+      --row-even:#e6f2fa;
+      --row-hover:#cce6f6;
+      --danger:#e63946;
+      --danger-dark:#b71c1c;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin:0; background:var(--bg); color:#2c3e50;
+    }
+    .wrap{max-width:1040px; margin:32px auto; padding:0 16px;}
+    header{text-align:center; margin-bottom:20px;}
+    header h1{margin:0; font-size:28px; color:var(--ocean-dark)}
+    header p{margin:6px 0 0; color:#587c92}
+
+    .grid{display:grid; grid-template-columns: 1fr; gap:20px;}
+    @media (min-width: 980px){ .grid{grid-template-columns: 360px 1fr;} }
+
+    .card{
+      background:#fff; border-radius:14px; box-shadow:0 6px 16px rgba(0,0,0,.08);
+      overflow:hidden; border-top:6px solid var(--ocean);
+    }
+    .card .card-header{padding:16px 18px; background:#fff; border-bottom:1px solid #eef3f8;}
+    .card .card-header h2{margin:0; font-size:18px; color:#244e68;}
+    .card .card-body{padding:18px}
+
+    .field{margin-bottom:14px;}
+    .field label{display:block; font-weight:600; margin-bottom:6px}
+    .field input{
+      width:100%; padding:10px 12px; border:1px solid #d6dee6; border-radius:10px; transition:.2s;
+    }
+    .field input:focus{outline:none; border-color:var(--ocean); box-shadow:0 0 0 3px rgba(0,119,182,.12);}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      border:none; border-radius:10px; padding:10px 14px; font-weight:700; cursor:pointer; transition:.2s;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn-primary{background:var(--ocean); color:#fff}
+    .btn-primary:hover{background:var(--ocean-dark)}
+    .btn-edit{background:var(--ocean-light); color:#fff}
+    .btn-edit:hover{background:#0096c7}
+    .btn-danger{background:var(--danger); color:#fff}
+    .btn-danger:hover{background:var(--danger-dark)}
+    .btn-ghost{background:#fff; color:var(--ocean); border:1px solid var(--ocean)}
+    .muted{color:#6b8597; font-size:12px}
+
+    .table-wrap{overflow:auto}
+    table{
+      width:100%; border-collapse:collapse; background:#fff; border-radius:14px; overflow:hidden;
+      box-shadow:0 6px 16px rgba(0,0,0,.08);
+    }
+    thead th{background:var(--ocean); color:#fff; text-align:left; padding:14px 12px; font-weight:700;}
+    tbody td{padding:12px; border-bottom:1px solid #eef2f6; vertical-align:middle;}
+    tbody tr:nth-child(even){background:var(--row-even)}
+    tbody tr:hover{background:var(--row-hover)}
+    .actions{display:flex; gap:8px; flex-wrap:wrap}
+
+    .toast{
+      position:fixed; right:20px; bottom:20px; min-width:220px; background:#ffffff; color:#13394b;
+      border-left:6px solid var(--ocean); box-shadow:0 10px 24px rgba(0,0,0,.18); border-radius:12px;
+      padding:12px 14px; display:none; z-index:9999;
+    }
+    .toast.show{display:block; animation:fadeIn .2s ease-out}
+    .toast.error{border-left-color:var(--danger); color:#7d0e16}
+    @keyframes fadeIn{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)}}
+
+    .toolbar{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px;}
+    .search{flex:1; display:flex; gap:8px;}
+    .search input{flex:1; padding:10px 12px; border:1px solid #d6dee6; border-radius:10px;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Quản lý lịch học</h1>
+      
+    </header>
+
+    <div class="grid">
+      <!-- Form -->
+      <section class="card">
+        <div class="card-header">
+          <h2 id="formTitle">Tạo lớp học</h2>
+          <span class="muted" id="formHint">Điền thông tin bên dưới và nhấn “Tạo lớp học”.</span>
+        </div>
+        <div class="card-body">
+          <form id="classForm" autocomplete="off">
+            <div class="field"><label for="classId">Mã lớp</label><input id="classId" type="text" required /></div>
+            <div class="field"><label for="subject">Môn học</label><input id="subject" type="text" required /></div>
+            <div class="field"><label for="teacherName">Giáo viên</label><input id="teacherName" type="text" required /></div>
+            <div class="field"><label for="teacherID">Mã GV</label><input id="teacherID" type="text" required /></div>
+            <div class="field"><label for="date">Ngày & giờ</label><input id="date" type="datetime-local" required /></div>
+            <div class="field"><label for="room">Phòng</label><input id="room" type="text" required /></div>
+            <div class="field"><label for="section">Section</label><input id="section" type="text" required /></div>
+            <div class="field"><label for="capacity">Sĩ số</label><input id="capacity" type="number" min="0" required /></div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button type="submit" id="submitBtn" class="btn btn-primary">➕ Tạo lớp học</button>
+              <button type="button" id="cancelEditBtn" class="btn btn-ghost" style="display:none;">Huỷ chỉnh sửa</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- List -->
+      <section class="card">
+        <div class="card-header">
+          <div class="toolbar">
+            <h2 style="margin:0;">Danh sách lớp học</h2>
+            <div class="search"><input id="searchInput" placeholder="Tìm theo mã lớp, môn, GV, phòng…" /></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Mã lớp</th><th>Môn</th><th>Giáo viên</th><th>Ngày</th><th>Phòng</th><th>Section</th><th>Sĩ số</th><th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="classList">
+                <tr><td colspan="8" class="muted">Đang tải dữ liệu…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- Firebase (v9 modular) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import {
+      getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc,
+      Timestamp, serverTimestamp, query, orderBy, getDocs
+    } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+
+    // === CẤU HÌNH WEB APP CỦA BẠN ===
+    const firebaseConfig = {
+      apiKey: "AIzaSyDVUpTPV77IKY1ley_zrJLwDZDmewRIEYw",
+      authDomain: "schedule-management-3b920.firebaseapp.com",
+      projectId: "schedule-management-3b920",
+      storageBucket: "schedule-management-3b920.firebasestorage.app",
+      messagingSenderId: "1002343131601",
+      appId: "1:1002343131601:web:a8cf2947a72088fa0bd8f0",
+      measurementId: "G-VGW2H1G9KP"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+
+    // ===== Helpers =====
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
+    const toastEl = $("#toast");
+    function toast(msg, type="info"){
+      toastEl.textContent = msg;
+      toastEl.className = "toast " + (type==="error" ? "error" : "");
+      toastEl.classList.add("show");
+      setTimeout(()=> toastEl.classList.remove("show"), 1800);
+    }
+    function fmtDate(val){
+      if (!val) return "";
+      try {
+        if (typeof val?.toDate === "function") return val.toDate().toLocaleString();
+        if (val?.seconds) return new Date(val.seconds*1000).toLocaleString();
+        const d = new Date(val); if (!isNaN(d)) return d.toLocaleString();
+      } catch {}
+      return String(val);
+    }
+    function toInputDatetimeLocal(ts){
+      try {
+        const d = ts?.toDate ? ts.toDate() : new Date(ts);
+        const local = new Date(d.getTime() - d.getTimezoneOffset()*60000);
+        return local.toISOString().slice(0,16);
+      } catch { return ""; }
+    }
+
+    // ===== State =====
+    let editingId = null;
+    let latestSnapshotDocs = [];
+    let filterKeyword = "";
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      const form = $("#classForm");
+      const submitBtn = $("#submitBtn");
+      const cancelEditBtn = $("#cancelEditBtn");
+      const formTitle = $("#formTitle");
+      const formHint = $("#formHint");
+      const tbody = $("#classList");
+
+      // ---- Submit (Create/Update)
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const payload = {
+          capacity: Number($("#capacity").value),
+          classId: $("#classId").value.trim(),
+          date: Timestamp.fromDate(new Date($("#date").value)),
+          room: $("#room").value.trim(),
+          section: $("#section").value.trim(),
+          subject: $("#subject").value.trim(),
+          teacherID: $("#teacherID").value.trim(),
+          teacherName: $("#teacherName").value.trim(),
+          updatedAt: serverTimestamp(),
+        };
+        if (!payload.classId){ toast("Vui lòng nhập mã lớp!", "error"); return; }
+
+        try {
+          if (editingId){
+            await updateDoc(doc(db, "ClassSchedule", editingId), payload);
+            toast("Đã cập nhật lớp học!");
+            editingId = null;
+            submitBtn.textContent = "➕ Tạo lớp học";
+            cancelEditBtn.style.display = "none";
+            formTitle.textContent = "Tạo lớp học";
+            formHint.textContent = "Điền thông tin bên dưới và nhấn “Tạo lớp học”.";
+          } else {
+            await addDoc(collection(db, "ClassSchedule"), { ...payload, createdAt: serverTimestamp() });
+            toast("Đã tạo lớp học!");
+          }
+          form.reset();
+        } catch (err){
+          console.error(err);
+          toast("Lỗi lưu dữ liệu: " + err.message, "error");
+        }
+      });
+
+      cancelEditBtn.addEventListener("click", () => {
+        editingId = null; form.reset();
+        submitBtn.textContent = "➕ Tạo lớp học";
+        cancelEditBtn.style.display = "none";
+        formTitle.textContent = "Tạo lớp học";
+        formHint.textContent = "Điền thông tin bên dưới và nhấn “Tạo lớp học”.";
+      });
+
+      // ---- Query: ưu tiên order theo 'date' (tất cả doc cũ đều có)
+      const qRef = query(collection(db, "ClassSchedule"), orderBy("date", "desc"));
+
+      // 1) Load dữ liệu CŨ một lần
+      try {
+        const first = await getDocs(qRef);
+        latestSnapshotDocs = first.docs.map(d => ({ id: d.id, data: d.data() }));
+        renderTable(tbody, latestSnapshotDocs, filterKeyword);
+      } catch (err){
+        console.error(err);
+        toast("Không tải được dữ liệu ban đầu: " + err.message, "error");
+      }
+
+      // 2) Lắng nghe realtime mọi thay đổi
+      onSnapshot(qRef, (snap) => {
+        latestSnapshotDocs = snap.docs.map(d => ({ id: d.id, data: d.data() }));
+        renderTable(tbody, latestSnapshotDocs, filterKeyword);
+      });
+
+      // Tìm kiếm
+      $("#searchInput").addEventListener("input", (e)=>{
+        filterKeyword = e.target.value.toLowerCase().trim();
+        renderTable(tbody, latestSnapshotDocs, filterKeyword);
+      });
+
+      // ---- Render
+      function renderTable(tbody, docs, keyword){
+        tbody.innerHTML = "";
+        const filtered = docs.filter(({data})=>{
+          if (!keyword) return true;
+          const s = [data.classId, data.subject, data.teacherName, data.room, data.section]
+            .map(v => (v||"").toString().toLowerCase()).join(" ");
+          return s.includes(keyword);
+        });
+
+        if (!filtered.length){
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td colspan="8" class="muted">Không có lớp học nào.</td>`;
+          tbody.appendChild(tr);
+          return;
+        }
+
+        filtered.forEach(({id, data})=>{
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${data.classId || ""}</td>
+            <td>${data.subject || ""}</td>
+            <td>${data.teacherName || ""}</td>
+            <td>${fmtDate(data.date)}</td>
+            <td>${data.room || ""}</td>
+            <td>${data.section || ""}</td>
+            <td>${data.capacity ?? ""}</td>
+            <td>
+              <div class="actions">
+                <button class="btn btn-edit" data-id="${id}" data-action="edit">Sửa</button>
+                <button class="btn btn-danger" data-id="${id}" data-action="delete">Xoá</button>
+              </div>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        // Bind actions
+        $$('.btn[data-action="delete"]').forEach(btn=>{
+          btn.onclick = async () => {
+            const id = btn.dataset.id;
+            if (confirm("Bạn chắc chắn muốn xoá lớp này?")){
+              try { await deleteDoc(doc(db, "ClassSchedule", id)); toast("Đã xoá lớp học!"); }
+              catch(err){ console.error(err); toast("Xoá thất bại: " + err.message, "error"); }
+            }
+          };
+        });
+
+        $$('.btn[data-action="edit"]').forEach(btn=>{
+          btn.onclick = () => {
+            const id = btn.dataset.id;
+            const it = latestSnapshotDocs.find(d => d.id === id);
+            if (!it) return;
+            $("#capacity").value    = it.data.capacity ?? "";
+            $("#classId").value     = it.data.classId ?? "";
+            $("#room").value        = it.data.room ?? "";
+            $("#section").value     = it.data.section ?? "";
+            $("#subject").value     = it.data.subject ?? "";
+            $("#teacherID").value   = it.data.teacherID ?? "";
+            $("#teacherName").value = it.data.teacherName ?? "";
+            $("#date").value        = toInputDatetimeLocal(it.data.date);
+
+            editingId = id;
+            $("#submitBtn").textContent = "✅ Cập nhật lớp học";
+            $("#cancelEditBtn").style.display = "inline-flex";
+            $("#formTitle").textContent = "Chỉnh sửa lớp học";
+            $("#formHint").textContent = "Chỉnh sửa thông tin và nhấn “Cập nhật lớp học”.";
+            toast("Đang chỉnh sửa lớp: " + (it.data.classId || id));
+            window.scrollTo({top:0, behavior:"smooth"});
+          };
+        });
+      }
+    });
+  </script>
+</body>
+</html>
