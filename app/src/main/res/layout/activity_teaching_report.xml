@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6FAFF">
+    android:background="#F6FAFF"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,43 +16,44 @@
         android:background="#F6FAFF">
 
         <!-- Header với nút Back và tiêu đề -->
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="#E1F0FF"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
             android:layout_marginBottom="15dp"
-            android:backgroundTint="#E1F0FF"
-            android:clipToPadding="false"
-            android:elevation="3dp"
             android:layout_marginTop="5dp">
 
-            <ImageButton
-                android:id="@+id/btnBack"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_arrow_back"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
 
-                android:tint="#22385C"
-                android:contentDescription="Back"
-                tools:ignore="UseAppTint" />
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_arrow_back"
+                    android:tint="#22385C"
+                    android:contentDescription="Back"
+                    tools:ignore="UseAppTint" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thống kê giảng dạy"
+                    android:textColor="#22385C"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_marginStart="24dp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thống kê giảng dạy"
-                android:textColor="#22385C"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginStart="24dp"/>
-        </LinearLayout>
-
-        <!-- Phần tiêu đề con - Báo cáo giảng dạy -->
+        <!-- Tiêu đề con -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,45 +63,6 @@
             android:textSize="24sp"
             android:gravity="center"
             android:layout_marginBottom="22dp"/>
-
-        <!-- Bộ lọc: 3 Spinner -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="23dp">
-
-            <Spinner
-                android:id="@+id/spinnerSemester"
-                android:layout_width="0dp"
-                android:layout_height="42dp"
-                android:layout_marginEnd="12dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_spinner_outline"
-                tools:ignore="TouchTargetSizeCheck" />
-
-
-            <Spinner
-                android:id="@+id/spinnerYear"
-                android:layout_width="0dp"
-                android:layout_height="42dp"
-                android:layout_marginEnd="12dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_spinner_outline"
-                tools:ignore="TouchTargetSizeCheck" />
-
-
-            <Spinner
-                android:id="@+id/spinnerSubjectGroup"
-                android:layout_width="0dp"
-
-                android:layout_height="42dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_spinner_outline"
-                tools:ignore="TouchTargetSizeCheck" />
-
-        </LinearLayout>
 
         <!-- Text tiêu đề - Lớp học phần -->
         <TextView
@@ -110,14 +74,15 @@
             android:textSize="20sp"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Bảng Lớp học phần -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvClassList"
+        <!-- TableLayout Lớp học phần -->
+        <TableLayout
+            android:id="@+id/tableClasses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingBottom="100dp"
-            android:nestedScrollingEnabled="false"/>
+            android:stretchColumns="*"
+            android:background="#FFFFFF"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp"/>
 
         <!-- Text tiêu đề - Giảng viên -->
         <TextView
@@ -130,14 +95,15 @@
             android:layout_marginTop="36dp"
             android:layout_marginBottom="12dp"/>
 
-        <!-- Bảng Giảng viên -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTeacherList"
+        <!-- TableLayout Giảng viên -->
+        <TableLayout
+            android:id="@+id/tableTeachers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingBottom="100dp"
-            android:nestedScrollingEnabled="false"/>
+            android:stretchColumns="*"
+            android:background="#FFFFFF"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
 </ScrollView>
