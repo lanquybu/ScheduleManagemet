@@ -15,19 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.Light.NoActionBar"
         tools:targetApi="31">
-        <activity android:name=".ui_admin.TeachingReportActivity" />
-        <activity
-
-            android:name=".ui_admin.NewTeachingScheduleActivity"
-
+        <activity android:name=".ui_admin.TeachingReportActivity"
+            android:exported="false" />
+        <activity android:name=".ui_admin.NewTeachingScheduleActivity"
             android:exported="false" />
 
         <activity
-
             android:name=".ui_admin.HomeAdminActivity"
+            android:exported="false" />
 
+        <activity
             android:name=".ui_admin.ScheduleListMakeUpActivity"
-
             android:exported="false" />
 
         <activity
@@ -37,8 +35,6 @@
         <activity
             android:name=".ui_admin.ScheduleListActivity"
             android:exported="false" />
-
-
 
         <activity
             android:name=".ui_teacher.teacher_home.TeacherMenuActivity"
@@ -73,7 +69,6 @@
             android:exported="false" />
 
         <activity
-
             android:name=".ui_student.notification.NotificationsActivity"
             android:exported="false" />
 
@@ -82,11 +77,11 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui_student.home.StudentMenuActivity" />
+        <activity android:name=".ui_student.home.StudentMenuActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

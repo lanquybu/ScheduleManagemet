@@ -1,8 +1,11 @@
 package com.example.schedulemanagement.ui_admin;
 
 import android.os.Bundle;
-import android.widget.ImageButton;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,52 +21,51 @@ import java.util.List;
 public class NewTeachingScheduleActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
     private NewScheduleAdapter adapter;
-    private List<NewSchedule> scheduleList;
+    private List<NewSchedule> newScheduleList;
     private FirebaseFirestore db;
-    private ImageButton btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_teaching_schedule);
 
-        // Ánh xạ các View từ layout
-        recyclerView = findViewById(R.id.recyclerView);
-        btnBack = findViewById(R.id.btnBack);
+        // Ánh xạ các view từ layout
+        ImageView btnBack = findViewById(R.id.btnBack);
+        recyclerView = findViewById(R.id.recyclerViewNotifications);
+        progressBar = findViewById(R.id.progressBar);
 
-        // Khởi tạo Firestore
-        db = FirebaseFirestore.getInstance();
-
-        // Thiết lập RecyclerView và Adapter
+        // Thiết lập RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        scheduleList = new ArrayList<>();
-        adapter = new NewScheduleAdapter(scheduleList);
+        newScheduleList = new ArrayList<>();
+        adapter = new NewScheduleAdapter(newScheduleList);
         recyclerView.setAdapter(adapter);
 
-        // Xử lý sự kiện click cho nút Quay lại
+        // Thiết lập Firestore
+        db = FirebaseFirestore.getInstance();
+
+        // Xử lý nút Back
         btnBack.setOnClickListener(v -> finish());
 
         // Tải dữ liệu từ Firestore
-        loadNewSchedules();
+        fetchNewSchedules();
     }
 
-    private void loadNewSchedules() {
+    private void fetchNewSchedules() {
+        progressBar.setVisibility(View.VISIBLE);
         db.collection("NewSchedules")
                 .get()
                 .addOnCompleteListener(task -> {
+                    progressBar.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
-                        // Xóa dữ liệu cũ trước khi thêm dữ liệu mới
-                        scheduleList.clear();
+                        newScheduleList.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Chuyển đổi Firestore document thành đối tượng NewSchedule
-                            NewSchedule schedule = document.toObject(NewSchedule.class);
-                            scheduleList.add(schedule);
+                            NewSchedule newSchedule = document.toObject(NewSchedule.class);
+                            newScheduleList.add(newSchedule);
                         }
-                        // Cập nhật RecyclerView để hiển thị dữ liệu
                         adapter.notifyDataSetChanged();
                     } else {
-                        // Hiển thị thông báo lỗi nếu không tải được dữ liệu
                         Toast.makeText(this, "Lỗi khi tải dữ liệu: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

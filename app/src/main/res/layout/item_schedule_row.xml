@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,32 +10,33 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="IT1234" />
+        android:text="Lớp học phần" />
 
     <TextView
         android:id="@+id/txtMonHoc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.5"
-        android:text="Cấu trúc dữ liệu" />
+        android:text="Môn học" />
 
     <TextView
         android:id="@+id/txtGiangVien"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.5"
-        android:text="Nguyễn Văn A" />
+        android:text="Giảng viên" />
 
     <TextView
         android:id="@+id/txtNgay"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="18/7/2025" />
+        android:text="Ngày" />
 
     <Button
         android:id="@+id/btnXacNhan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Xác nhận" />
+
 </LinearLayout>

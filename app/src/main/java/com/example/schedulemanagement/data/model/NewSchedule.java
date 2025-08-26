@@ -4,34 +4,42 @@ public class NewSchedule {
     private String classID;
     private String date;
     private String subject;
-    private String teachername; // Tên biến được đổi để khớp với Firestore
+    private String teacherName;
 
     public NewSchedule() {
-        // Bắt buộc có constructor rỗng cho Firestore
+        // Constructor rỗng cần thiết cho Firebase
     }
 
-    public NewSchedule(String classID, String date, String subject, String teachername) {
-        this.classID = classID;
-        this.date = date;
-        this.subject = subject;
-        this.teachername = teachername;
-    }
-
-    // Các phương thức getter (bắt buộc cho Firestore)
+    // Getters and Setters
     public String getClassID() {
         return classID;
+    }
+
+    public void setClassID(String classID) {
+        this.classID = classID;
     }
 
     public String getDate() {
         return date;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getSubject() {
         return subject;
     }
 
-    // Đổi tên phương thức getter để khớp với tên biến
-    public String getTeachername() {
-        return teachername;
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 }
