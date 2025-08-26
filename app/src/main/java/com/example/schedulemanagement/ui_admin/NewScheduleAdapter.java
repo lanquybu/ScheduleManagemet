@@ -37,12 +37,12 @@ public class NewScheduleAdapter extends RecyclerView.Adapter<NewScheduleAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         NewSchedule schedule = scheduleList.get(position);
 
-        holder.txtClassID.setText(schedule.getClassID());
-        holder.txtSubject.setText(schedule.getSubject());
-        holder.txtTeacher.setText(schedule.getTeachername());
-        holder.txtDate.setText(schedule.getDate());
+        holder.txtLopHocPhan.setText(schedule.getClassID());
+        holder.txtMonHoc.setText(schedule.getSubject());
+        holder.txtGiangVien.setText(schedule.getTeacherName());
+        holder.txtNgay.setText(schedule.getDate());
 
-        // Update the button's logic to show a confirmation dialog
+        // Cập nhật logic của nút để hiển thị hộp thoại xác nhận
         holder.btnXacNhan.setOnClickListener(v -> {
             showConfirmationDialog(v.getContext(), schedule, position);
         });
@@ -59,7 +59,7 @@ public class NewScheduleAdapter extends RecyclerView.Adapter<NewScheduleAdapter.
         View dialogView = inflater.inflate(R.layout.dialog_confirm_schedule, null);
         builder.setView(dialogView);
 
-        // Find views in the dialog layout
+        // Ánh xạ các view trong layout của hộp thoại
         TextView tvClassName = dialogView.findViewById(R.id.tvClassName);
         TextView tvSubject = dialogView.findViewById(R.id.tvSubject);
         TextView tvDate = dialogView.findViewById(R.id.tvDate);
@@ -69,26 +69,25 @@ public class NewScheduleAdapter extends RecyclerView.Adapter<NewScheduleAdapter.
         Button btnCancel = dialogView.findViewById(R.id.btnCancel);
         Button btnConfirm = dialogView.findViewById(R.id.btnConfirm);
 
-        // Fill dialog views with data from the NewSchedule object
+        // Điền dữ liệu vào các view của hộp thoại
         tvClassName.setText("Lớp: " + schedule.getClassID());
         tvSubject.setText("Môn học: " + schedule.getSubject());
         tvDate.setText("Ngày: " + schedule.getDate());
-        // Note: I'm assuming your NewSchedule model and Firestore data have these fields.
-        // If not, you'll need to update them to prevent a crash.
-        // For now, I'll use placeholders.
+        // Lưu ý: Các trường "Phòng" và "Tiết" không có trong dữ liệu Firestore của bạn,
+        // bạn có thể cần cập nhật chúng nếu dữ liệu thay đổi.
         tvRoom.setText("Phòng: ");
         tvPeriod.setText("Tiết: ");
-        tvTeacher.setText("Giảng viên: " + schedule.getTeachername());
+        tvTeacher.setText("Giảng viên: " + schedule.getTeacherName());
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
-        // Handle the "Cancel" button click
+        // Xử lý sự kiện click cho nút "Hủy"
         btnCancel.setOnClickListener(v -> {
             alertDialog.dismiss();
         });
 
-        // Handle the "Confirm" button click
+        // Xử lý sự kiện click cho nút "Xác nhận"
         btnConfirm.setOnClickListener(v -> {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("confirmedSchedules")
@@ -108,15 +107,15 @@ public class NewScheduleAdapter extends RecyclerView.Adapter<NewScheduleAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtClassID, txtSubject, txtTeacher, txtDate;
+        TextView txtLopHocPhan, txtMonHoc, txtGiangVien, txtNgay;
         Button btnXacNhan;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtClassID = itemView.findViewById(R.id.txtLopHocPhan);
-            txtSubject = itemView.findViewById(R.id.txtMonHoc);
-            txtTeacher = itemView.findViewById(R.id.txtGiangVien);
-            txtDate = itemView.findViewById(R.id.txtNgay);
+            txtLopHocPhan = itemView.findViewById(R.id.txtLopHocPhan);
+            txtMonHoc = itemView.findViewById(R.id.txtMonHoc);
+            txtGiangVien = itemView.findViewById(R.id.txtGiangVien);
+            txtNgay = itemView.findViewById(R.id.txtNgay);
             btnXacNhan = itemView.findViewById(R.id.btnXacNhan);
         }
     }
