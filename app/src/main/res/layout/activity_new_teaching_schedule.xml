@@ -1,108 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6FAFF">
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="Quay lại" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Danh sách lịch dạy mới"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="18dp"
-        android:gravity="center_horizontal">
+        android:orientation="horizontal"
+        android:background="#E0E0E0"
+        android:padding="8dp"
+        android:weightSum="5">
 
-        <!-- Header với nút back và tiêu đề -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="#E1F0FF"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:layout_marginBottom="15dp"
-            android:elevation="3dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Lớp học phần"
+            android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/btnBack"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Back"
-                android:src="@drawable/ic_arrow_back"
-                android:tint="#22385C"
-                tools:ignore="UseAppTint,TouchTargetSizeCheck" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="Môn học"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Danh sách lịch dạy mới"
-                android:textColor="#22385C"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginStart="24dp"/>
-        </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="Giảng viên"
+            android:textStyle="bold" />
 
-        <!-- Header cho bảng -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginBottom="10dp"
-            android:background="#F2F9FF"
-            android:clipToPadding="false"
-            android:elevation="1dp"
-            android:orientation="horizontal"
-            android:padding="14dp">
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Lớp học phần"
-                android:textColor="#4D4D4D"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.8"
-                android:gravity="center"
-                android:text="Môn học"
-                android:textColor="#4D4D4D"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.2"
-                android:gravity="center"
-                android:text="Giảng viên"
-                android:textColor="#4D4D4D"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Ngày"
-                android:textColor="#4D4D4D"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="75dp"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- RecyclerView danh sách lịch dạy -->
-        <include layout="@layout/item_schedule_row"/>
-        <include layout="@layout/item_schedule_row"/>
-        <include layout="@layout/item_schedule_row"/>
-
-
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ngày"
+            android:textStyle="bold" />
     </LinearLayout>
-</ScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

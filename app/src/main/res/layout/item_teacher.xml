@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tvTeacherID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mã GV: GV001"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black"
+            android:textSize="16sp"
+            android:textColor="#22385C" />
+
+        <TextView
+            android:id="@+id/tvTeacherName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên: Nguyễn Văn A"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black"
+            android:textSize="15sp"
+            android:textColor="#444" />
+
+        <TextView
+            android:id="@+id/tvDepartment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bộ môn: CNTT"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black"
+            android:textSize="15sp"
+            android:textColor="#444" />
+
+        <TextView
+            android:id="@+id/tvNumClasses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số môn dạy: 3"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black"
+            android:textSize="15sp"
+            android:textColor="#444" />
+
+        <TextView
+            android:id="@+id/tvNumHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số giờ dạy: 120"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black"
+            android:textSize="15sp"
+            android:textColor="#444" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

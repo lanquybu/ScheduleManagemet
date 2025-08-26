@@ -31,6 +31,15 @@ public class HomeAdminActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
+        MaterialCardView cardTeachingReport = findViewById(R.id.cardStatistics);
+        cardTeachingReport.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeAdminActivity.this, TeachingReportActivity.class);
+            startActivity(intent);
+        });
+
+
+
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }

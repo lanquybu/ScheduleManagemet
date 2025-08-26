@@ -14,10 +14,11 @@ import com.example.schedulemanagement.util.EmailValidator;
 import java.util.Locale;
 
 /**
- * Repository xử lý ĐĂNG NHẬP cho SINH VIÊN.
- * - Chỉ cho phép email có đuôi @e.tlu.edu.vn
- * - Kiểm tra Firestore role = "student"
- * - Lần đầu đăng nhập: tự tạo hồ sơ sinh viên trong users/{uid}
+ * Đăng nhập đa vai trò:
+ * - Lấy role từ Firestore (users/{uid}.role).
+ * - Nếu role = "student" -> bắt buộc email @e.tlu.edu.vn.
+ * - lecturer/admin -> không ép domain.
+ * - (Auto-create hồ sơ lần đầu chỉ cho student).
  */
 public class AuthRepository {
 

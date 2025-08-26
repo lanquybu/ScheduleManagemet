@@ -65,6 +65,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:text="Tên giảng viên"
             android:textSize="16sp"
             android:textColor="#000000"/>
@@ -81,6 +82,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:text="Môn học"
             android:textSize="16sp"
             android:textColor="#000000"/>

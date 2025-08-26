@@ -1,0 +1,19 @@
+<resources>
+    <string-array name="hoc_ky_array">
+        <item>Học kỳ 1</item>
+        <item>Học kỳ 2</item>
+        <item>Học kỳ 3</item>
+    </string-array>
+
+    <string-array name="nam_array">
+        <item>2023</item>
+        <item>2024</item>
+        <item>2025</item>
+    </string-array>
+
+    <string-array name="bo_mon_array">
+        <item>CNTT</item>
+        <item>Kinh tế</item>
+        <item>Xây dựng</item>
+    </string-array>
+</resources>
