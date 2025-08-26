@@ -24,6 +24,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginTop="5dp">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -31,6 +32,8 @@
                 android:gravity="center_vertical"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp">
+
+       
 
                 <ImageButton
                     android:id="@+id/btnBack"
@@ -63,6 +66,37 @@
             android:textSize="24sp"
             android:gravity="center"
             android:layout_marginBottom="22dp"/>
+
+
+        <!-- Bộ lọc: 3 Spinner -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="23dp">
+
+            <Spinner
+                android:id="@+id/spinnerSemester"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="42dp"
+                android:layout_marginEnd="12dp"/>
+
+            <Spinner
+                android:id="@+id/spinnerYear"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="42dp"
+                android:layout_marginEnd="12dp"/>
+
+            <Spinner
+                android:id="@+id/spinnerSubjectGroup"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="42dp" />
+        </LinearLayout>
+
 
         <!-- Text tiêu đề - Lớp học phần -->
         <TextView

@@ -3,8 +3,12 @@ package com.example.schedulemanagement.ui_admin;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
+
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView; // Import CardView
+import androidx.cardview.widget.CardView;
+
+
 import com.example.schedulemanagement.R;
 
 public class VisibilityActivity extends AppCompatActivity {
@@ -29,3 +33,21 @@ public class VisibilityActivity extends AppCompatActivity {
         });
     }
 }
+
+
+        // Card danh sách lịch dạy bù
+        CardView cardDayBu = findViewById(R.id.cardDayBu);
+        cardDayBu.setOnClickListener(v -> {
+            Intent intent = new Intent(VisibilityActivity.this, ScheduleListMakeUpActivity.class);
+            startActivity(intent);
+        });
+
+        /* Card danh sách lịch dạy mới (sau này bạn mở Activity khác)
+        CardView cardDayMoi = findViewById(R.id.cardDayMoi);
+        cardDayMoi.setOnClickListener(v -> {
+            Intent intent = new Intent(VisibilityActivity.this, ScheduleListActivity.class);
+            startActivity(intent);
+        });*/
+    }
+}
+

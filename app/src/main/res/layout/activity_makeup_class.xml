@@ -65,6 +65,24 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
+            android:text="Tên giảng viên"
+            android:textSize="16sp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:padding="12dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
             android:text="Môn học"
             android:textSize="16sp"
             android:textColor="#000000"/>
